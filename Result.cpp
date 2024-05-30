@@ -38,8 +38,9 @@ void Result::Draw()
 {
 
 	DrawGrid(worldviewProjectionMatrix, viewportMatrix);
-	DrawSphere(sphere, worldviewProjectionMatrix, viewportMatrix, 0xAAAAAAFF);
+	//DrawSphere(sphere, worldviewProjectionMatrix, viewportMatrix, 0xAAAAAAFF);
 	DrawPlane(plane, worldviewProjectionMatrix, viewportMatrix, color);
+	DrawTriangle(triangle, worldviewProjectionMatrix, viewportMatrix, color);
 
 	//線分の描画
 	Vector3 start = Transform(Transform(segment1.origin, worldviewProjectionMatrix), viewportMatrix);

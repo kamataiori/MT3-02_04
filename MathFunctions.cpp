@@ -410,6 +410,13 @@ bool isColliding(const Sphere& c1, const Sphere& c2)
 	return distance <= radiusSum;
 }
 
+void DrawTriangle(const Triangle& triangle, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color)
+{
+	Vector3 crooss01 = Cross(v01, v1p);
+	Vector3 crooss02 = Cross(v02, v2p);
+	Vector3 crooss03 = Cross(v03, v3p);
+}
+
 //bool Colliding(const Sphere& c1, const Plane& c2)
 //{
 //	

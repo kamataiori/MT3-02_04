@@ -65,5 +65,5 @@ bool isColliding(const Sphere& c1, const Sphere& c2);
 bool Colliding(const Sphere& c1, const Plane& c2);
 
 
-
+void DrawTriangle(const Triangle& triangle, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color);
 
