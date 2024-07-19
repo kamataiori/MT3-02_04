@@ -27,6 +27,14 @@ void Result::Initialize()
 	color = 0xAAAAAAFF;
 
 	segment1 = { {-2.0f,-1.0f,0.0f},{3.0f,2.0f,2.0f} };
+
+	triangle =
+	{
+		{0.0f,1.0f,0.0f,
+		1.0f,-1.0f,0.0f,
+		-1.0f,-1.0f,0.0f},
+		
+	};
 }
 
 void Result::Updata()
@@ -39,24 +47,32 @@ void Result::Draw()
 
 	DrawGrid(worldviewProjectionMatrix, viewportMatrix);
 	//DrawSphere(sphere, worldviewProjectionMatrix, viewportMatrix, 0xAAAAAAFF);
-	DrawPlane(plane, worldviewProjectionMatrix, viewportMatrix, color);
+	//DrawPlane(plane, worldviewProjectionMatrix, viewportMatrix, color);
 	DrawTriangle(triangle, worldviewProjectionMatrix, viewportMatrix, color);
+	if (IsCollision(segment1, triangle))
+	{
+		color = RED;
+	}
+	else
+	{
+		color;
+	}
 
 	//線分の描画
 	Vector3 start = Transform(Transform(segment1.origin, worldviewProjectionMatrix), viewportMatrix);
-	Vector3 end = Transform(Transform(Add(segment1.origin, segment1.diff), viewportMatrix), viewportMatrix);
+	Vector3 end = Transform(Transform(Add(segment1.origin, segment1.diff), worldviewProjectionMatrix), viewportMatrix);
 	Novice::DrawLine(int(start.x), int(start.y), int(end.x), int(end.y), WHITE);
 
 	//ImGui
 	ImGui::Begin("Window");
 	ImGui::DragFloat3("CameraTranslate", &cameraTranslate.x, 0.01f);
 	ImGui::DragFloat3("CameraRotate", &cameraRotate.x, 0.01f);
-	ImGui::DragFloat3("SphereTranslate", &sphere.center.x, 0.01f);
-	ImGui::DragFloat("SphereRadius", &sphere.radius, 0.01f);
+	ImGui::DragFloat3("segment1origin", &segment1.origin.x, 0.01f);
+	ImGui::DragFloat3("segment1diff", &segment1.diff.x, 0.01f);
 	ImGui::End();
 
 	ImGui::Begin("Window2");
-	ImGui::DragFloat3("Plane.normal", &plane.normal.x, 0.01f);
+//	ImGui::DragFloat("triangle", &triangle, 0.01f);
 	plane.normal = Normalize(plane.normal);
 	ImGui::End();
 

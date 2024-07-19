@@ -27,6 +27,7 @@ public:
 	uint32_t color{};
 
 	Segment segment1{};
+	Triangle triangle{};
 
 	Result();
 

@@ -67,3 +67,8 @@ bool Colliding(const Sphere& c1, const Plane& c2);
 
 void DrawTriangle(const Triangle& triangle, const Matrix4x4& viewProjectionMatrix, const Matrix4x4& viewportMatrix, uint32_t color);
 
+bool IsCollision(const Segment& segment, const Triangle& triangle);
+
+float Dot(Vector3 v1, Vector3 v2);
+
+
