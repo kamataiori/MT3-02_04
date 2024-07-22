@@ -30,9 +30,9 @@ void Result::Initialize()
 
 	triangle =
 	{
-		{0.0f,1.0f,0.0f,
-		1.0f,-1.0f,0.0f,
-		-1.0f,-1.0f,0.0f},
+		{-1.0f,0.0f,0.0f,
+		0.0f,1.0f,0.0f,
+		1.0f,0.0f,0.0f},
 		
 	};
 }
@@ -55,7 +55,7 @@ void Result::Draw()
 	}
 	else
 	{
-		color;
+		color = 0xAAAAAAFF;
 	}
 
 	//線分の描画

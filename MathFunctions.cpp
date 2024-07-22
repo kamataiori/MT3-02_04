@@ -430,41 +430,37 @@ bool IsCollision(const Segment& segment, const Triangle& triangle)
 
 	Vector3 v01 = //edge from vertex v0 to vertex v1
 	{
-		v0.x - v1.x,
-		v0.y - v1.y,
-		v0.z - v1.z
+		v1.x - v0.x,
+		v1.y - v0.y,
+		v1.z - v0.z
 	};
 	Vector3 v20 = //edge from vertex v2 to vertex v0
 	{
-		v2.x - v0.x,
-		v2.y - v0.y,
-		v2.z - v0.z
+		v0.x - v2.x,
+		v0.y - v2.y,
+		v0.z - v2.z
 	};
 
 	Vector3 v12 = //edge from vertex v1 to vertex v2
 	{
-		v1.x - v2.x,
-		v1.y - v2.y,
-		v1.z - v2.z
+		v2.x - v1.x,
+		v2.y - v1.y,
+		v2.z - v1.z
 	};
 
-	Vector3 normal = Cross(v01, v20); //cross the edges
+	Vector3 normal = Normalize(Cross(v01, v12)); //cross the edges
 
-	Vector3 segmentToPlane = //Vector between the line and edge v0 of the triangle
-	{
-		v0.x - segment.origin.x,
-		v0.y - segment.origin.y,
-		v0.z - segment.origin.z
-	};
+	Plane plane{ .normal = normal,.distance = Dot(triangle.vertices[0],normal) };
 
-	float denom = Dot(segment.diff, normal); //dot product of the line and the crossed edges
+	float dot = Dot(plane.normal, segment.diff);
 
-	if (denom == 0.0f) //if the dot product is zero we are not colliding
+
+	if (dot == 0.0f) //if the dot product is zero we are not colliding
 	{
 		return false;
 	}
 
-	float t = Dot(segmentToPlane, normal) / denom; //determine intersection point, if we are between 0 and 1 we are colliding
+	float t = (plane.distance - Dot(segment.origin, plane.normal)) / dot; //determine intersection point, if we are between 0 and 1 we are colliding
 
 	if (t < 0.0f || t > 1.0f)  //if were not between 0 and 1
 	{
